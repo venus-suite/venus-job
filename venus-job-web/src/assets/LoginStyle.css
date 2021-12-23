@@ -1,0 +1,19 @@
+.ant-pro-form-login-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    line-height: 44px;
+    margin-bottom: 20px;
+}
+.ant-form_login {
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: 'tnum', "tnum";
+    width: 500px;
+    margin-left: -80px;
+}
