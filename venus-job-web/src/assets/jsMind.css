@@ -1,0 +1,31 @@
+jmexpander {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: darkseagreen;
+    display: block;
+    color: darkseagreen;
+    overflow: hidden;
+    line-height: 12px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    cursor: pointer;
+}
+
+jmnode {
+    box-shadow: none;
+}
+
+jmnodes.theme-belizehole jmnode.selected {
+    background-color: midnightblue;
+}
+  
+  .ant-statistic-content-value-int {
+    font-size: 22px;
+  }
+
+
+  

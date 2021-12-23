@@ -1,0 +1,86 @@
+export default [
+  {
+    path: '/',
+    name: '首页',
+    icon: 'home',
+    component: '@/pages/index',
+  },
+  {
+    path: '/user',
+    layout: false,
+    routes: [
+      { path: '/user', routes: [{ name: '登录', path: '/user/login', component: './user/Login' }] },
+      // { component: './404' },
+    ],
+  },
+  { path: '/', redirect: '/' },
+  // {
+  //   path: '/admin',
+  //   name: '管理页',
+  //   icon: 'crown',
+  //   access: 'canAdmin',
+  //   component: './Admin',
+  //   routes: [
+  //     { path: '/admin/sub-page', name: '二级管理页', icon: 'smile', component: './Welcome' },
+  //     { component: './404' },
+  //   ],
+  // },
+  // { name: '查询表格', icon: 'table', path: '/list', component: './TableList' },
+  // { path: '/', redirect: '/admin' },
+  {
+    path: '/jobAdmin/taskTop',
+    name: '任务图谱',
+    icon: 'PieChartOutlined',
+    component: '@/pages/taskTop/index',
+  },
+  {
+    path: '/jobAdmin/jobs',
+    name: '任务管理',
+    icon: 'YoutubeOutlined',
+    component: '@/pages/jobManager/index',
+  },
+  {
+    path: '/jobAdmin/executer',
+    name: '执行器管理',
+    icon: 'SendOutlined',
+    component: '@/pages/executerManager/index',
+  },
+  {
+    path: '/jobAdmin/nameSpace',
+    name: '命名空间管理',
+    icon: 'UsergroupAddOutlined',
+    component: '@/pages/nameSpaceManager/index',
+  },
+  {
+    path: '/jobAdmin/jobApprove',
+    name: '任务审核',
+    icon: 'SecurityScanOutlined',
+    component: '@/pages/jobApprove/index',
+  },
+  {
+    path: '/jobAdmin/taskDp',
+    name: '数据统计',
+    icon: 'AreaChartOutlined',
+    component: '@/pages/taskDp/index',
+  },
+  {
+    path: '/jobAdmin/log',
+    name: '调度日志',
+    icon: 'ExceptionOutlined',
+    component: '@/pages/dispatchLog/index',
+  },
+  {
+    path: '/jobAdmin/operateLog',
+    name: '操作日志',
+    icon: 'ExceptionOutlined',
+    component: '@/pages/operateLog/index',
+    access: 'canAdmin',
+  },
+  {
+    path: '/admin',
+    name: '用户管理',
+    icon: 'UserOutlined',
+    component: './user/Admin',
+    access: 'canAdmin',
+  },
+];
