@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/venus-job.iml" filepath="$PROJECT_DIR$/.idea/venus-job.iml" />
+      <module fileurl="file://$PROJECT_DIR$/venus-job-admin/venus-job-admin.iml" filepath="$PROJECT_DIR$/venus-job-admin/venus-job-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/venus-job-core/venus-job-core.iml" filepath="$PROJECT_DIR$/venus-job-core/venus-job-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/venus-job-demo/venus-job-demo.iml" filepath="$PROJECT_DIR$/venus-job-demo/venus-job-demo.iml" />
+    </modules>
+  </component>
+</project>

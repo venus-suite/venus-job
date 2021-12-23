@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.suite.venus.job.admin.mapper.XxlJobGroupMapper">
+	
+	<resultMap id="XxlJobGroup" type="io.suite.venus.job.admin.core.model.XxlJobGroup" >
+		<result column="id" property="id" />
+	    <result column="app_name" property="appName" />
+		<result column="namespace" property="namespace" />
+		<result column="namespace_id" property="namespaceId" />
+	    <result column="title" property="title" />
+	    <result column="order" property="order" />
+		<result column="address_type" property="addressType" />
+		<result column="address_list" property="addressList" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		t.id,
+		t.app_name,
+		t.title,
+		t.`order`,
+		t.address_type,
+		t.namespace ,
+		t.namespace_id,
+		t.address_list
+	</sql>
+
+	<select id="findAll" resultMap="XxlJobGroup">
+		SELECT <include refid="Base_Column_List" />
+		FROM XXL_JOB_QRTZ_TRIGGER_GROUP AS t
+		ORDER BY t.order ASC
+	</select>
+
+	<select id="findByAddressType" parameterType="java.lang.Integer" resultMap="XxlJobGroup">
+		SELECT <include refid="Base_Column_List" />
+		FROM XXL_JOB_QRTZ_TRIGGER_GROUP AS t
+		WHERE t.address_type = #{addressType}
+		ORDER BY t.order ASC
+	</select>
+
+	<insert id="save" parameterType="io.suite.venus.job.admin.core.model.XxlJobGroup" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO XXL_JOB_QRTZ_TRIGGER_GROUP ( `app_name`,`namespace`,`namespace_id`, `title`, `order`, `address_type`, `address_list`)
+		values ( #{appName}, #{namespace},#{namespaceId}, #{title}, #{order}, #{addressType}, #{addressList});
+	</insert>
+
+	<update id="update" parameterType="io.suite.venus.job.admin.core.model.XxlJobGroup" >
+		UPDATE XXL_JOB_QRTZ_TRIGGER_GROUP
+		SET `app_name` = #{appName},
+			`title` = #{title},
+			`order` = #{order},
+			`address_type` = #{addressType},
+			`address_list` = #{addressList}
+		WHERE id = #{id}
+	</update>
+
+	<delete id="remove" parameterType="java.lang.Integer" >
+		DELETE FROM XXL_JOB_QRTZ_TRIGGER_GROUP
+		WHERE id = #{id}
+	</delete>
+
+	<select id="load" parameterType="java.lang.Integer" resultMap="XxlJobGroup">
+		SELECT <include refid="Base_Column_List" />
+		FROM XXL_JOB_QRTZ_TRIGGER_GROUP AS t
+		WHERE t.id = #{id}
+	</select>
+
+	<select id="findByUserId"  resultMap="XxlJobGroup" >
+		SELECT  DISTINCT  t1.*
+		FROM XXL_JOB_QRTZ_TRIGGER_GROUP  t1  INNER join  xxl_job_qrtz_namespace  t2
+		on t1.namespace_id =t2.namespace_id
+		INNER JOIN xxl_job_qrtz_user_namespace  t3  on t3.namespace_id=t2.namespace_id
+		WHERE 1=1
+		<if test="userId>0" >
+			AND t3.user_id=#{userId}
+		</if>
+		order  by  t1.id desc
+
+	</select>
+
+
+	<select id="findByUserIdAndName"  resultMap="XxlJobGroup" >
+		SELECT DISTINCT
+		t1.id,
+		t1.app_name,
+		t1.address_list,
+		t1.address_type,
+		t1.title,
+		t1.`order`,
+		t1.namespace_id,
+		concat_ws( ':', t2.namespace, t2.service ) AS namespace
+		FROM XXL_JOB_QRTZ_TRIGGER_GROUP  t1  INNER join  xxl_job_qrtz_namespace  t2
+		on t1.namespace_id =t2.namespace_id
+		INNER JOIN xxl_job_qrtz_user_namespace  t3  on t3.namespace_id=t2.namespace_id
+		WHERE 1=1
+		<if test="email!=null and email!='' " >
+			AND t3.email=#{email}
+		</if>
+
+		<if test="groupInfoReq.appName != null and groupInfoReq.appName != ''">
+			AND t1.app_name like CONCAT(CONCAT('%', #{groupInfoReq.appName}), '%')
+		</if>
+
+		<if test="groupInfoReq.title != null and groupInfoReq.title != ''">
+			AND t1.title like CONCAT(CONCAT('%', #{groupInfoReq.title}), '%')
+		</if>
+
+		<if test="groupInfoReq.addressType!=null  and groupInfoReq.addressType>=0">
+			AND t1.address_type =#{groupInfoReq.addressType}
+		</if>
+
+		<if test="groupInfoReq.namespaceId != null and groupInfoReq.namespaceId >0 ">
+			AND t1.namespace_id  =#{groupInfoReq.namespaceId}
+		</if>
+		order by  t1.`order` ,t1.id desc
+	</select>
+
+
+
+</mapper>

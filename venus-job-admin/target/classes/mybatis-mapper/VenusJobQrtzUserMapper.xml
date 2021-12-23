@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.suite.venus.job.admin.mapper.VenusJobQrtzUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="io.suite.venus.job.admin.core.model.VenusJobQrtzUser">
+        <id column="id" property="id" />
+        <result column="email" property="email" />
+        <result column="name" property="name" />
+        <result column="password" property="password" />
+        <result column="token" property="token" />
+        <result column="token_time" property="tokenTime" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator" property="operator" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="last_login_time" property="lastLoginTime" />
+        <result column="is_super" property="isSuper" />
+    </resultMap>
+
+    <select id="getUserInfoForLogin" resultMap="BaseResultMap">
+        select * from venus_job_qrtz_user  where  (email=#{userAccount} or name=#{userAccount})
+        and password=#{password} limit 1
+    </select>
+
+    <select id="getUserInfoByToken" resultMap="BaseResultMap">
+        select * from venus_job_qrtz_user  where  token=#{userToken} limit 1
+    </select>
+
+    <select id="getUserInfoPageList"  resultMap="BaseResultMap" >
+        SELECT	* FROM	venus_job_qrtz_user WHERE  1=1
+
+        <if test="req.isDeleted != null  " >
+            AND  is_deleted=#{req.isDeleted}
+        </if>
+        <if test="req.isSuper != null  " >
+            AND  is_super=#{req.isSuper}
+        </if>
+
+        <if test="req.email != null and req.email != ''">
+            AND email like CONCAT(CONCAT('%', #{req.email}), '%')
+        </if>
+        <if test="req.name != null and req.name != ''">
+            AND name like CONCAT(CONCAT('%', #{req.name}), '%')
+        </if>
+
+        order by id  desc
+    </select>
+
+</mapper>

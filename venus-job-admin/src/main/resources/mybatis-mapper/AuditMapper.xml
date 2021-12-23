@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.suite.venus.job.admin.mapper.AuditMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="io.suite.venus.job.admin.core.model.Audit">
+        <id column="audit_id" property="auditId" />
+        <result column="audit_code" property="auditCode" />
+        <result column="audit_desc" property="auditDesc" />
+        <result column="status" property="status" />
+        <result column="apply_time" property="applyTime" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="verification_code" property="verificationCode" />
+        <result column="user_id" property="userId" />
+        <result column="namespace" property="namespace" />
+        <result column="namespace_id" property="namespaceId" />
+        <result column="user_name" property="userName" />
+        <result column="email" property="email" />
+    </resultMap>
+    <update id="updateAudioStatus">
+        update xxl_job_qrtz_audit set status=#{status} where  audit_id=#{auditId}
+    </update>
+
+    <select id="getAuditPageList"  resultMap="BaseResultMap" >
+        SELECT	* FROM	xxl_job_qrtz_audit WHERE  1=1
+        <if test="req.isAdmin !=1 " >
+          AND  namespace_id IN (
+            SELECT namespace_id
+            FROM xxl_job_qrtz_user_namespace
+            WHERE email = #{req.email} )
+        </if>
+
+        <if test="req.auditId >0  " >
+            AND  audit_id=#{req.auditId}
+        </if>
+        <if test="req.status >0  " >
+        AND  status=#{req.status}
+        </if>
+
+        <if test="req.applyStartTime != null and req.applyStartTime >0">
+            AND apply_time &gt; #{req.applyStartTime}
+        </if>
+
+        <if test="req.applyEndTime != null and req.applyEndTime >0 ">
+            AND apply_time &lt; #{req.applyEndTime}
+        </if>
+
+        <if test="req.auditDesc != null and req.auditDesc != ''">
+            AND audit_desc like CONCAT(CONCAT('%', #{req.auditDesc}), '%')
+        </if>
+
+        order by audit_id  desc
+    </select>
+
+    <select id="getAudioDetailByIdList"
+            resultType="io.suite.venus.job.admin.core.model.AuditDetail">
+        SELECT audit_id as  auditId,audit_text as auditText  FROM	xxl_job_qrtz_audit_detail
+          WHERE  audit_id in
+        <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+    </select>
+
+</mapper>

@@ -1,0 +1,55 @@
+server:
+  port: 8901
+
+logging:
+  config: classpath:logback-dev.xml
+  level:
+    org.springframework.boot.autoconfigure: info
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/venus_job?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useServerPrepStmts=true&useSSL=true
+    username: root
+    password: root
+    testOnBorrow: true
+    validationQuery: SELECT 1
+    max-active: 100
+    initial-size: 4
+    max-wait: 3000
+    min-idle: 3
+    time-between-eviction-runs-millis: 3000
+    min-evictable-idle-time-millis: 300000
+    driver-class-name: com.mysql.jdbc.Driver
+  application:
+    name: xxl-job-admin-test
+
+
+mybatis:
+  typeAliasesPackage: io.suite.venus.job.admin.model
+  configuration:
+    mapUnderscoreToCamelCase: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: info,health,env
+  security:
+    enabled: false
+  address: localhost
+  context-path: /actuator
+
+mybatis.mapper-locations: classpath:/mybatis-mapper/*Mapper.xml
+### xxl-job
+xxl:
+  job:
+    accessToken: io.suite.com
+
+#是否启用swagger  true 启用， false 不启用
+enableSwagger: false
+
+#企业微信消息显示的地址，就是admin后台对应的地址
+showDetailUrl: http://localhost:8901/jobAdmin/jobApprove?auditId=%d

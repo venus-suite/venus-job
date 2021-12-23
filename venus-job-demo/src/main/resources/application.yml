@@ -1,0 +1,14 @@
+server:
+  port: 18983
+
+### xxl-job executor address
+xxl.job.admin.addresses: http://localhost:8901
+xxl.job.executor.appname: demo
+xxl.job.executor.ip:
+xxl.job.executor.port: 19096
+xxl.job.executor.namespace: platform:vnenus
+xxl.job.accessToken: io.suite.com
+### xxl-job log path
+xxl.job.executor.logpath: /data/logs/java/service-stat-job/
+### xxl-job log retention days
+xxl.job.executor.logretentiondays: -1

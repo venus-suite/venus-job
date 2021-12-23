@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "xxl.job.admin.accessToken",
+      "type": "java.lang.String",
+      "description": "Description for xxl.job.admin.accessToken."
+  }
+] }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.suite.venus.job.admin.mapper.NamespaceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="io.suite.venus.job.admin.core.model.Namespace">
+        <id column="namespace_id" property="namespaceId" />
+        <result column="namespace" property="namespace" />
+        <result column="service" property="service" />
+        <result column="app_key" property="appKey" />
+        <result column="remark" property="remark" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="notice_web_hook" property="noticeWebHook" />
+    </resultMap>
+
+    <select id="getUserNamespaceList" resultMap="BaseResultMap">
+    SELECT * FROM xxl_job_qrtz_namespace WHERE
+	namespace_id IN ( SELECT namespace_id FROM xxl_job_qrtz_user_namespace
+	WHERE user_id = #{userId} )
+    </select>
+
+
+    <select id="getNamespaceList" resultMap="BaseResultMap">
+    SELECT * FROM xxl_job_qrtz_namespace WHERE  1=1
+
+    <if test="req.namespace!=null and  req.namespace!='' " >
+        and namespace like CONCAT(CONCAT('%', #{req.namespace}), '%')
+    </if>
+
+    <if test="req.service!=null and  req.service!='' " >
+        and service like CONCAT(CONCAT('%', #{req.service}), '%')
+    </if>
+
+    <if test="req.email!=null and  req.email!='' " >
+        and namespace_id IN ( SELECT namespace_id FROM xxl_job_qrtz_user_namespace
+        WHERE email = #{req.email} )
+    </if>
+
+     order  by  namespace_id desc
+    </select>
+
+    <select id="getNamespaceByGroup" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT namespace FROM xxl_job_qrtz_trigger_registry WHERE registry_group=#{regGroup}
+    </select>
+
+    <select id="getNamespace" resultType="io.suite.venus.job.admin.core.model.Namespace">
+       SELECT * FROM xxl_job_qrtz_namespace WHERE   namespace=#{name} and service=#{server}
+    </select>
+
+    <select id="getNamespaceListByEmail" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select * from  xxl_job_qrtz_namespace WHERE namespace_id in
+         (select namespace_id from xxl_job_qrtz_user_namespace
+         where email=#{email})
+
+    </select>
+    <select id="getStatByJobGroup" resultType="io.suite.venus.job.admin.domain.dto.JobGroupStat">
+
+        select  job_group jobGroup,job_status jobStatus,count(job_group) groupCount from
+                    xxl_job_qrtz_trigger_info
+        group by job_group, job_status
+    </select>
+
+
+</mapper>
