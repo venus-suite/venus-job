@@ -39,8 +39,55 @@ Venus Job基于xxl-job 2.0.2，相比xxl-job，主要的增强功能点有：
 
 <h3 id="2">基于源码部署</h3>
 
-待完善。。。
+部署前提条件
+
+* ![](https://img.shields.io/static/v1?label=git&message=2.34.1&color=green&?style=for-the-badge)
+
+* ![](https://img.shields.io/static/v1?label=Node.js&message=12.0&color=green&?style=for-the-badge)
+
+* ![](https://img.shields.io/static/v1?label=Java&message=1.8&color=green&?style=for-the-badge)
+
+* ![](https://img.shields.io/static/v1?label=mysql&message=5.7&color=green&?style=for-the-badge)
+
+Step 1： 下载源码
+```
+git clone https://github.com/venus-suite/venus-job.git
+```
+Step 2：编译打包前端代码
+```
+cd  venus-job-web
+npm run build:staging
+```
+
+Step 3(可选)：本地调试前端代码
+```
+npm run dev
+```
+
+Step 4：编译打包后端代码
+
+先编辑venus-job-admin\src\main\resources\application.yml 修改mysql连接字符串
+接着开始打包：
+
+```
+cd venus-job-admin
+mvn package 
+```
+
+Step 5：运行程序
+
+```
+java  -jar venus-job-admin-0.0.1.jar
+```
+
+Step 6：浏览器输入 http://localhost:8901 访问
+
+```
+java  -jar venus-job-admin-0.0.1.jar
+```
 
 <h3 id="3">使用手册</h3>
+
+![avatar](venus-job-web/src/assets/bg.png)
 
 待完善。。。
