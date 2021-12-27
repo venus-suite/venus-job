@@ -28,6 +28,8 @@
     
     * [3.8 操作日志](#11)
 
+* [4.常见问题](https://github.com/venus-suite/venus-job/wiki)
+
 <h3 id="1">1. 简介</h3>
 
 Venus Job是一个分布式的任务调度平台，主要有以下功能：
