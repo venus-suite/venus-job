@@ -123,7 +123,7 @@ create table if not exists xxl_job_qrtz_namespace
 (
     namespace_id    int auto_increment comment '主键'
     primary key,
-    namespace       varchar(50)                                 not null comment '命名空间',
+    business_name       varchar(50)                                 not null comment '业务空间',
     service         varchar(255)                                not null comment '服务名',
     app_key         varchar(255)                                null comment '命名空间对应的key',
     remark          varchar(255)                                null comment '空间描述',
@@ -132,6 +132,7 @@ create table if not exists xxl_job_qrtz_namespace
     is_deleted      tinyint                                     not null comment '0=未删除，1=已删除',
     admin_user      mediumtext                                  null comment '命名空间管理员，用来@对应的用户',
     notice_web_hook varchar(1024) default ''                    null comment '错误信息通知webhook',
+    audit_web_hook varchar(1024) default ''                    null comment '审核信息通知webhook',
     constraint uniq_service
     unique (namespace, service)
     )
