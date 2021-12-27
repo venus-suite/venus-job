@@ -134,7 +134,7 @@ create table if not exists xxl_job_qrtz_namespace
     notice_web_hook varchar(1024) default ''                    null comment '错误信息通知webhook',
     audit_web_hook varchar(1024) default ''                    null comment '审核信息通知webhook',
     constraint uniq_service
-    unique (namespace, service)
+    unique (business_name, service)
     )
     comment 'job对应的命名空间' charset = utf8;
 
