@@ -202,7 +202,7 @@ const App = () => {
         toolBarRender={(action) => [
           <BetaSchemaForm
             key="create"
-            title="新增db配置信息"
+            title="新增用户信息"
             trigger={<ProAction type="primary">新增</ProAction>}
             layoutType="ModalForm"
             width={500}
