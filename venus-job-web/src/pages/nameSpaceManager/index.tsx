@@ -27,7 +27,7 @@ import type {
 const formCol: FormSchema<AddNamespaceParams>['columns'] = [
   {
     title: '业务名称',
-    dataIndex: 'namespace',
+    dataIndex: 'businessName',
     formItemProps: {
       rules: [{ required: true, message: '请选择执行器' }],
     },
@@ -40,10 +40,17 @@ const formCol: FormSchema<AddNamespaceParams>['columns'] = [
     },
   },
   {
-    title: '日志通知',
+    title: '日志通知WebHook(不填写，错误不提醒)',
     dataIndex: 'noticeWebHook',
     formItemProps: {
-      rules: [{ required: true, message: '请填写日志通知' }],
+      rules: [{ required: false, message: '请填写日志通知' }],
+    },
+  },
+  {
+    title: '审核通知WebHook(不填写，默认不审核)',
+    dataIndex: 'auditWebHook',
+    formItemProps: {
+      rules: [{ required: false, message: '请填写审核通知' }],
     },
   },
   { title: '备注', dataIndex: 'remark' },
@@ -57,7 +64,14 @@ const App = () => {
   };
   const columns: ProColumns<NamespaceAndUser>[] = [
     { title: 'id', dataIndex: 'namespaceId', search: false, width: 80 },
-    { title: '业务名称', dataIndex: 'namespace' },
+    {
+      title: '命名空间',
+      dataIndex: 'namespace',
+      render: (dom, record) => {
+        return <div>{record.businessName + ':' + record.service}</div>;
+      },
+    },
+    { title: '业务名称', dataIndex: 'businessName' },
     // { title: '命名空间key', dataIndex: 'appKey' },
     { title: '服务名', dataIndex: 'service' },
     {
@@ -134,7 +148,7 @@ const App = () => {
             </ProAction>
           }
           layoutType="ModalForm"
-          width={500}
+          width={800}
           initialValues={record}
           onFinish={async (values) => {
             await updateNamespace({
@@ -195,18 +209,6 @@ const App = () => {
               },
               fieldProps: {
                 placeholder: '可输入多个邮箱，用英文逗号","分隔',
-              },
-            },
-            {
-              title: '是否需要审核',
-              dataIndex: 'needAudit',
-              valueType: 'switch',
-              initialValue: true,
-              fieldProps: {
-                checkedChildren: '是',
-                unCheckedChildren: '否',
-                defaultChecked: true,
-                disabled: !user.admin,
               },
             },
           ]}
@@ -281,9 +283,8 @@ const App = () => {
               </ProAction>
             }
             layoutType="ModalForm"
-            width={500}
-            layout="horizontal"
-            labelCol={{ span: 6 }}
+            width={800}
+            labelCol={{ span: 12 }}
             onFinish={async (values) => {
               await addNamespace(values);
               action?.reload();

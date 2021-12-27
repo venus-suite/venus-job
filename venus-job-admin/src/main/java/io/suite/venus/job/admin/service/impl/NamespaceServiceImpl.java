@@ -69,7 +69,7 @@ public class NamespaceServiceImpl  implements NamespaceService {
                                     new io.suite.venus.job.admin.domain.dto.UserNamespace();
                             up.setNamespaceId(userNamespace.getNamespaceId());
                             up.setEmail(userNamespace.getEmail());
-                            up.setNamespace(namespace.getNamespace() + ":" + namespace.getService());
+                            up.setNamespace(namespace.getBusinessName() + ":" + namespace.getService());
                             up.setNeedAudit(userNamespace.getNeedAudit());
                             namespaceAndUser.getUserNamespaceList().add(up);
                         }
@@ -131,7 +131,7 @@ public class NamespaceServiceImpl  implements NamespaceService {
                 namespace.setEmail(email);
                 namespace.setNamespaceId(item);
                 namespace.setIsDeleted(0);
-                namespace.setNeedAudit(req.getNeedAudit());
+                namespace.setNeedAudit(0);
                 namespace.setUserId(0L);
                 userNamespaceMapper.insertSelective(namespace);
 

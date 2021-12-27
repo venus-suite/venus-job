@@ -87,7 +87,7 @@
 		t1.title,
 		t1.`order`,
 		t1.namespace_id,
-		concat_ws( ':', t2.namespace, t2.service ) AS namespace
+		concat_ws( ':', t2.business_name, t2.service ) AS namespace
 		FROM XXL_JOB_QRTZ_TRIGGER_GROUP  t1  INNER join  xxl_job_qrtz_namespace  t2
 		on t1.namespace_id =t2.namespace_id
 		INNER JOIN xxl_job_qrtz_user_namespace  t3  on t3.namespace_id=t2.namespace_id

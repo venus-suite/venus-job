@@ -119,12 +119,15 @@ public class OperationAop {
             context.setDetail(detailReq);
             context.setNamespace(namespace);
             detailReq.setMethod(m.getName());
-            if (userNamespace.getNeedAudit() == 1) {
+
+            if (!StringUtils.isEmpty(namespace.getAuditWebHook()) &&
+                    namespace.getAuditWebHook().trim().startsWith("http")
+            ) {
                 needAudit = true;
             } else {
                 needAudit = false;
             }
-            webHook=namespace.getNoticeWebHook();
+            webHook=namespace.getAuditWebHook();
 
         }
 

@@ -134,7 +134,7 @@ public class JobGroupController {
 			for(Namespace namespace : namespaceList) {
 				NamespaceResp resp=new NamespaceResp();
 				BeanUtils.copyProperties(namespace,resp);
-				resp.setNamespace(namespace.getNamespace()+":"+namespace.getService());
+				resp.setNamespace(namespace.getBusinessName()+":"+namespace.getService());
 				namespaceRespList.add(resp);
 			}
 		}

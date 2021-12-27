@@ -87,10 +87,6 @@ public class NamespaceController {
         UserInfo userInfo = UserInfoContext.getUserInfo();
         AssertUtil.isTrue(!StringUtils.isEmpty(req.getNamespaceIdList()), "命名空间不能为空");
         AssertUtil.isTrue(!CollectionUtils.isEmpty(req.getEmailList()), "用户邮箱不能为空");
-        boolean isAdmin = userService.isSuperAdmin(userInfo.getEmail());
-        if (!isAdmin) {
-            req.setNeedAudit(1);
-        }
         return BaseResponse.valueOfSuccess(namespaceService.addNamespaceToUser(req));
     }
 
@@ -107,7 +103,7 @@ public class NamespaceController {
 
     private void checkNamespace(NamespaceReq req) {
         AssertUtil.isTrue(req != null, "NamespaceReq不能为空");
-        AssertUtil.isTrue(!StringUtils.isEmpty(req.getNamespace()), "命名空间不能为空");
+        AssertUtil.isTrue(!StringUtils.isEmpty(req.getBusinessName()), "命名空间不能为空");
         AssertUtil.isTrue(!StringUtils.isEmpty(req.getService()), "服务名不能为空");
     }
 
@@ -148,7 +144,7 @@ public class NamespaceController {
                 TaskTreeNode e = new TaskTreeNode();
                 e.setDirection("right");
                 e.setId("ns_" + andUser.getNamespaceId());
-                e.setTopic(andUser.getRemark()+"("+andUser.getNamespace()+":"+andUser.getService()+")");
+                e.setTopic(andUser.getRemark()+"("+andUser.getBusinessName()+":"+andUser.getService()+")");
                 e.setParentId("root");
                 Long namespaceId = andUser.getNamespaceId();
                 if (groupList != null) {

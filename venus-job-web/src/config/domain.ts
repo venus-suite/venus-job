@@ -1,8 +1,5 @@
-import { env } from './common';
-
-const domainPrefix = env === 'prod' ? '' : `${env}-`;
 
 /**
  * 默认域名
  */
-export const defaultDomain = `//localhost:8901`;
+export const defaultDomain = `http://127.0.0.1:8901`;

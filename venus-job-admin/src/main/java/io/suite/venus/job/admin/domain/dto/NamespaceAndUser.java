@@ -19,7 +19,7 @@ public class NamespaceAndUser {
      * 命名空间
      */
     @ApiModelProperty(value = "业务名称")
-    private String namespace;
+    private String businessName;
 
     /**
      * 服务名
@@ -38,8 +38,13 @@ public class NamespaceAndUser {
     @ApiModelProperty(value = "错误通知的web-hook（可以配置企业机器人)")
     private String noticeWebHook;
 
+    @ApiModelProperty(value = "审核通知的web-hook（可以配置企业机器人)")
+    private String auditWebHook;
+
     @ApiModelProperty(value = "描述")
     private String remark;
+
+
 
 
 }

@@ -51,7 +51,7 @@ public class AuditOpera {
         audit.setAuditDesc(auditContext.getDetail().getDesc());
         audit.setVerificationCode(RandomUtil.getRandomCode());
         Namespace namespace=auditContext.getNamespace();
-        audit.setNamespace(namespace.getNamespace()+":"+namespace.getService());
+        audit.setNamespace(namespace.getBusinessName()+":"+namespace.getService());
         audit.setNamespaceId(namespace.getNamespaceId());
         audit.setUserId(UserInfoContext.getUserInfo().getUserId());
         audit.setAuditSourceId(auditContext.getTargetId());

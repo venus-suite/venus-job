@@ -37,8 +37,8 @@ public class Namespace implements Serializable {
     private Long namespaceId;
 
     @ApiModelProperty(value = "业务名称")
-    @Column(name = "namespace")
-    private String namespace;
+    @Column(name = "business_name")
+    private String businessName;
 
     @ApiModelProperty(value = "服务名")
     @Column(name = "service")
@@ -74,4 +74,8 @@ public class Namespace implements Serializable {
     @Column(name = "notice_web_hook")
     private String noticeWebHook;
 
+
+    @ApiModelProperty(value = "审核通知的web-hook（可以配置企业机器人)")
+    @Column(name = "audit_web_hook")
+    private String auditWebHook;
 }
