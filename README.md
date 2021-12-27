@@ -156,9 +156,9 @@ java  -jar venus-job-admin-0.0.1.jar
 3.3.1 添加MAVEN依赖：
 ```
 <dependency>
-<groupId>com.chuxingyouhui</groupId>
-<artifactId>xxl-job-core</artifactId>
-<version>0.0.5</version>
+  <groupId>io.suite.venus</groupId>
+  <artifactId>venus-job</artifactId>
+  <version>0.0.1</version>
 </dependency>
 ```
 
