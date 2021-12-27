@@ -27,8 +27,16 @@ export async function getInitialState(): Promise<{
         baseURL: defaultDomain,
         url: '/loginToken',
         method: 'POST',
-        params: {token: localStorage.getItem('token')}
+        params: { token: localStorage.getItem('token') },
       });
+      // @ts-ignore
+      //console.log(">>>",msg);
+      let jobUser = { admin: false };
+      if (msg.isSuper === 1) {
+        jobUser.admin = true;
+      }
+
+      localStorage.setItem('jobUser', JSON.stringify(jobUser));
       return msg;
     } catch (error) {
       history.push(loginPath);
@@ -59,8 +67,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     },
     // footerRender: () => <Footer />,
     onPageChange: () => {
-      //const { location } = history;
-      // 如果没有登录，重定向到 login
+      // const { location } = history;
+      // //如果没有登录，重定向到 login
       // if (!initialState?.currentUser && location.pathname !== loginPath) {
       //   history.push(loginPath);
       // }
