@@ -69,7 +69,12 @@ Venus Job基于xxl-job 2.0.2，相比xxl-job，主要的增强功能点有：
 
 Step 1： 下载源码
 ```
+
+github站点
 git clone https://github.com/venus-suite/venus-job.git
+
+gitee 国内站点访问
+git clone https://gitee.com/venus-suite/venus-job.git
 ```
 Step 2：编译打包前端代码
 ```
